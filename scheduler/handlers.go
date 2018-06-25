@@ -13,6 +13,10 @@ func (s *TypeSchaduler) HandleGET() ([]byte, error) {
 		return nil, errReq
 	}
 
+	q := req.URL.Query()
+	q.Add("namedb", s.Config.RadisDB)
+	req.URL.RawQuery = q.Encode()
+
 	client := http.Client{}
 	resp, errResp := client.Do(req)
 	if errResp != nil {

@@ -8,6 +8,7 @@ import (
 
 func (s *TypeSchaduler) ApprovedTask() {
 
+	//TODO pass Redis DB name
 	data, errGET := s.HandleGET()
 	if errGET != nil {
 		fmt.Println(errGET)
@@ -23,6 +24,8 @@ func (s *TypeSchaduler) ApprovedTask() {
 
 
 func (s *TypeSchaduler) Run() {
+
+	//TODO NEED use right time of schedule -> must change in conf
 
 	fmt.Println("NewScheduler Create")
 
