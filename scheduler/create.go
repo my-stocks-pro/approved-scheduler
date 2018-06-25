@@ -6,7 +6,7 @@ import (
 )
 
 
-func (s *TypeSchaduler) Task() {
+func (s *TypeSchaduler) ApprovedTask() {
 
 	data, errGET := s.HandleGET()
 	if errGET != nil {
@@ -27,6 +27,6 @@ func (s *TypeSchaduler) Run() {
 	fmt.Println("NewScheduler Create")
 
 	approvedScheduler := gocron.NewScheduler()
-	approvedScheduler.Every(s.Config.Tick).Seconds().Do(s.Task)
+	approvedScheduler.Every(s.Config.Tick).Seconds().Do(s.ApprovedTask)
 	<- approvedScheduler.Start()
 }
