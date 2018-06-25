@@ -1,30 +1,29 @@
 package scheduler
 
-type TypeReadisData struct {
-	Date string
+type TypeReadisApproved struct {
+	Date   string
 	IDlist []string
 }
 
 type TypeConfig struct {
-	Tick     uint64
-	URLGET    string
-	URLPOST   string
+	Tick    uint64
+	URLGET  string
+	URLPOST string
+	RadisDB string
 }
 
 type TypeSchaduler struct {
 	Config    *TypeConfig
-	RedisData *TypeReadisData
+	RedisData *TypeReadisApproved
 }
 
-
-func ReadisDataNew () *TypeReadisData{
-	return &TypeReadisData{}
+func ReadisApprovedNew() *TypeReadisApproved {
+	return &TypeReadisApproved{}
 }
-
 
 func New() *TypeSchaduler {
 	return &TypeSchaduler{
 		GetConfig(),
-		ReadisDataNew(),
+		ReadisApprovedNew(),
 	}
 }
