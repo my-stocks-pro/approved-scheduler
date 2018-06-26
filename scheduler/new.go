@@ -1,19 +1,15 @@
 package scheduler
 
+import "github.com/my-stocks-pro/approved-scheduler/config"
+
 type TypeReadisApproved struct {
 	Date   string
 	IDlist []string
 }
 
-type TypeConfig struct {
-	Tick    uint64
-	URLGET  string
-	URLPOST string
-	RadisDB string
-}
 
 type TypeSchaduler struct {
-	Config    *TypeConfig
+	Config    *config.TypeConfig
 	RedisData *TypeReadisApproved
 }
 
@@ -23,7 +19,7 @@ func ReadisApprovedNew() *TypeReadisApproved {
 
 func New() *TypeSchaduler {
 	return &TypeSchaduler{
-		GetConfig(),
+		config.GetConfig(),
 		ReadisApprovedNew(),
 	}
 }

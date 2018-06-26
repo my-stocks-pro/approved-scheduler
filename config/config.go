@@ -1,4 +1,4 @@
-package scheduler
+package config
 
 import (
 	"log"
@@ -6,6 +6,12 @@ import (
 	"io/ioutil"
 )
 
+type TypeConfig struct {
+	Tick    uint64
+	URLGET  string
+	URLPOST string
+	RadisDB string
+}
 
 func GetConfig() *TypeConfig {
 

@@ -6,6 +6,9 @@ import (
 
 func main() {
 
+	//TODO -> This is test
+	//rds.Test()
+
 	Scheduler := scheduler.New()
 
 	Scheduler.Run()

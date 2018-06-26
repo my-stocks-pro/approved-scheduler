@@ -13,13 +13,18 @@ func (s *TypeSchaduler) ApprovedTask() {
 	if errGET != nil {
 		fmt.Println(errGET)
 	}
+	fmt.Println("HandleGET", string(data))
 
-	resp, errPOST := s.HandlePOST(data)
-	if errPOST != nil {
-		fmt.Println(errPOST)
-	}
+	//data := Test()
+	//
+	//resp, errPOST := s.HandlePOST(data)
+	//if errPOST != nil {
+	//	fmt.Println(errPOST)
+	//}
+	//
+	//fmt.Println(resp)
 
-	fmt.Println(resp)
+	//os.Exit(1)
 }
 
 
