@@ -3,5 +3,5 @@ host: 127.0.0.1
 hostapi: api
 hostapproved: approved-service
 methodget: http://%s:8001/api/redis
-methodpost: http://%s:8002/approved/redis
+methodpost: http://%s:8002/approved
 redisdb: 2
