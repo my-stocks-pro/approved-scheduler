@@ -4,16 +4,23 @@ import (
 	"log"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
+	"os"
+	"fmt"
 )
 
 type TypeConfig struct {
-	Tick    uint64
-	URLGET  string
-	URLPOST string
-	RadisDB string
+	Tick         uint64
+	Host         string
+	HostAPI      string
+	HostApproved string
+	MethodGET    string
+	MethodPOST   string
+	RedisDB      string
 }
 
 func GetConfig() *TypeConfig {
+
+	prod := os.Getenv("PROD")
 
 	conf := &TypeConfig{}
 
@@ -26,6 +33,16 @@ func GetConfig() *TypeConfig {
 	if errYaml != nil {
 		log.Fatalf("error: %v", errYaml)
 	}
+
+	if prod == "1" {
+		conf.MethodPOST = fmt.Sprintf(conf.MethodPOST, conf.HostApproved)
+		conf.MethodGET = fmt.Sprintf(conf.MethodGET, conf.HostAPI)
+	} else {
+		conf.MethodPOST = fmt.Sprintf(conf.MethodPOST, conf.Host)
+		conf.MethodGET = fmt.Sprintf(conf.MethodGET, conf.Host)
+	}
+
+	fmt.Println(conf)
 
 	return conf
 }
