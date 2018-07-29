@@ -1,7 +1,8 @@
 package main
 
 import (
-	"github.com/my-stocks-pro/approved-scheduler/scheduler"
+		"github.com/my-stocks-pro/approved-scheduler/scheduler"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -9,7 +10,11 @@ func main() {
 	//TODO -> This is test
 	//rds.Test()
 
+	router := gin.Default()
+
 	Scheduler := scheduler.New()
 
-	Scheduler.Run()
+	go Scheduler.Run()
+
+	router.Run(":8002")
 }

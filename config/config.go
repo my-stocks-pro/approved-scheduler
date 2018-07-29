@@ -2,10 +2,10 @@ package config
 
 import (
 	"log"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"os"
 	"fmt"
+	"gopkg.in/yaml.v2"
 )
 
 type TypeConfig struct {
@@ -24,7 +24,7 @@ func GetConfig() *TypeConfig {
 
 	conf := &TypeConfig{}
 
-	data, errReadFile := ioutil.ReadFile("config/approved-scheduler-config.yaml")
+	data, errReadFile := ioutil.ReadFile("config/approved-scheduler.yaml")
 	if errReadFile != nil {
 		log.Fatalf("error: %v", errReadFile)
 	}
