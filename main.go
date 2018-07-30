@@ -14,7 +14,9 @@ func main() {
 
 	Scheduler := scheduler.New()
 
-	go Scheduler.Run()
+	router.GET("/"+Scheduler.Config.Service, func(c *gin.Context) {
+		go Scheduler.Run()
+	})
 
 	router.Run(":8002")
 }

@@ -20,26 +20,32 @@ DOCKERRUN=$(DOCKER) run
 GODEP=dep
 NEWDEP=$(GODEP) ensure
 
-all: test go-build docker-build clean
-
-test:
-	$(GOTEST) -v ./...
+all: go-build docker-build clean
 
 go-build:
+	@echo "Golang build executable"
 	$(NEWDEP)
 	GOOS=$(GOOS) GOARCH=$(GOARCH) CGO_ENABLED=$(CGO_ENABLED) $(GOBUILD) -o $(BINARY) $(GOFLAGS) main.go
 
 docker-build:
+	@echo "Docker build service"
 	$(DOCKERBUILD) --no-cache -t $(BINARY) .
 
 run:
+	@echo "Docker run service"
 	$(DOCKERRUN) \
+	-q \
 	--rm \
-	-ti \
+	-dt \
 	-p 8002:8002 \
 	--name=$(BINARY) \
 	$(BINARY)
 
 clean:
+	@echo "Clean"
 	$(GOCLEAN)
 	rm -f $(BINARY)
+
+stop:
+	@echo "Stop"
+	docker stop -t $(BINARY)
