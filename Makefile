@@ -1,31 +1,45 @@
+
+#GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o main -ldflags '-w -s' main.go
+
+BINARY=earnings-scheduler
+
+GOOS=linux
+GOARCH=amd64
+CGO_ENABLED=0
+
 GOCMD=go
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
 GOGET=$(GOCMD) get
-BINARY_NAME=mybinary
-BINARY_UNIX=$(BINARY_NAME)_unix
+GOFLAGS=-ldflags '-w -s'
+DOCKER=docker
+DOCKERBUILD=$(DOCKER) build
+DOCKERRUN=$(DOCKER) run
 
-all: test build
+GODEP=dep
+NEWDEP=$(GODEP) ensure
 
-build:
-    $(GOBUILD) -o $(BINARY_NAME) -v
-#test:
-#        $(GOTEST) -v ./...
-#clean:
-#        $(GOCLEAN)
-#        rm -f $(BINARY_NAME)
-#        rm -f $(BINARY_UNIX)
-run:
-        $(GOBUILD) -o $(BINARY_NAME) -v ./...
-        ./$(BINARY_NAME)
-#deps:
-#        $(GOGET) github.com/markbates/goth
-#        $(GOGET) github.com/markbates/pop
+all: test go-build docker-build clean
 
+test:
+	$(GOTEST) -v ./...
 
-# Cross compilation
-build-linux:
-        CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GOBUILD) -o $(BINARY_UNIX) -v
+go-build:
+	$(NEWDEP)
+	GOOS=$(GOOS) GOARCH=$(GOARCH) CGO_ENABLED=$(CGO_ENABLED) $(GOBUILD) -o $(BINARY) $(GOFLAGS) main.go
+
 docker-build:
-        docker run --rm -it -v "$(GOPATH)":/go -w /go/src/bitbucket.org/rsohlich/makepost golang:latest go build -o "$(BINARY_UNIX)" -v
+	$(DOCKERBUILD) --no-cache -t $(BINARY_NAME) .
+
+run:
+	$(DOCKERRUN) \
+	--rm \
+	-d \
+	-p 8002:8002 \
+	--name=$(BINARY) \
+	$(BINARY)
+
+clean:
+	$(GOCLEAN)
+	rm -f $(BINARY)
