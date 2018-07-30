@@ -11,8 +11,14 @@
 
 #GOOS=linux GOARCH=amd64 CGO_ENABLED=1 go build -o entrypoint -ldflags '-w -s' main.go
 #
+
+
 FROM scratch
-ADD main /
+
+ADD approved-scheduler /
+
 CMD mkdir config
+
 COPY config/approved-scheduler.yaml config/
-ENTRYPOINT ["/main"]
+
+ENTRYPOINT ["/approved-scheduler"]

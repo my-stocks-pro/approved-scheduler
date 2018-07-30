@@ -1,7 +1,7 @@
 
 #GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o main -ldflags '-w -s' main.go
 
-BINARY=earnings-scheduler
+BINARY=approved-scheduler
 
 GOOS=linux
 GOARCH=amd64
@@ -30,12 +30,12 @@ go-build:
 	GOOS=$(GOOS) GOARCH=$(GOARCH) CGO_ENABLED=$(CGO_ENABLED) $(GOBUILD) -o $(BINARY) $(GOFLAGS) main.go
 
 docker-build:
-	$(DOCKERBUILD) --no-cache -t $(BINARY_NAME) .
+	$(DOCKERBUILD) --no-cache -t $(BINARY) .
 
 run:
 	$(DOCKERRUN) \
 	--rm \
-	-d \
+	-ti \
 	-p 8002:8002 \
 	--name=$(BINARY) \
 	$(BINARY)
