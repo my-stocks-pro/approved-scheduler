@@ -6,7 +6,7 @@ import (
 	"bytes"
 )
 
-func (s *TypeSchaduler) HandleGET() ([]byte, error) {
+func (s *TypeScheduler) HandleGET() ([]byte, error) {
 
 	req, errReq := http.NewRequest("GET", s.Config.MethodGET, nil)
 	if errReq != nil {
@@ -31,7 +31,7 @@ func (s *TypeSchaduler) HandleGET() ([]byte, error) {
 	return b, nil
 }
 
-func (s *TypeSchaduler) HandlePOST (data []byte) (*http.Response, error) {
+func (s *TypeScheduler) HandlePOST (data []byte) (*http.Response, error) {
 
 	req, errReq := http.NewRequest("POST", s.Config.MethodPOST, bytes.NewReader(data))
 	if errReq != nil {

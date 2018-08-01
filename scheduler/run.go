@@ -6,7 +6,7 @@ import (
 )
 
 
-func (s *TypeSchaduler) ApprovedTask() {
+func (s *TypeScheduler) ApprovedTask() {
 
 	//TODO pass Redis DB name
 	data, errGET := s.HandleGET()
@@ -28,7 +28,7 @@ func (s *TypeSchaduler) ApprovedTask() {
 }
 
 
-func (s *TypeSchaduler) Run() {
+func (s *TypeScheduler) Run() {
 
 	//TODO NEED use right time of schedule -> must change in conf
 
